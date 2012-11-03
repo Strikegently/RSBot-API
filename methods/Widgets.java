@@ -87,6 +87,10 @@ public class Widgets {
 	public static WidgetChild get(final int index, final int childIndex) {
 		return get(index).getChild(childIndex);
 	}
+	
+	public static WidgetChild get(final int index, final int parent, final int child) {
+        	return get(index, parent).getChild(child);
+    	}
 
 	public static WidgetChild getChild(final int id) {
 		final int x = id >> 0x10;
