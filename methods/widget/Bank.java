@@ -278,6 +278,25 @@ public class Bank {
 		return deposit(id, amount.getValue());
 	}
 
+	private void depositAllExcept(final int... ids) { //Simply input the IDs of items not being deposited
+    	final WidgetChild inv = Widgets.get(679, 0);
+    	for (int i = 0; i < 28; i++) {
+    	final WidgetChild spot = inv.getChild(i);
+    	if (spot != null && checkID(spot.getChildId(), true, ids)) {
+    	Bank.deposit(spot.getChildId(), 0);
+    	}
+    	}
+    	}
+
+    	private boolean checkID(final int id, boolean skip, final int... ids) {
+    	for (int curID : ids) {
+    	if (curID == id) {
+    	return !skip;
+    	}
+    	}
+    	return skip;
+    	} 
+
 	public static boolean deposit(final int id, final int amount) {
 		final Item item = Inventory.getItem(id);
 		if (!isOpen() || item == null || amount < 0) {
