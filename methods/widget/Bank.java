@@ -305,6 +305,29 @@ public class Bank {
 		}
 		return Inventory.getCount(true) != invCount;
 	}
+	
+	/**
+	 * deposits all items except for those listed in keep
+	 * @return true if inventory does not contain any items except for those listed in keep
+	 */
+	public boolean depositAllExcept(final int... keep) {
+        	if (!Bank.isOpen()) {
+        		return false;
+		}
+        
+        	Arrays.sort(keep);
+        	for (final Item item : Inventory.getItems()) {
+            		if (Inventory.getCount() - Inventory.getCount(keep) == 0) {
+                		return true;
+            	}
+            	
+			if (Arrays.binarySearch(keep, item.getId()) == -1) {
+                		deposit(item.getId(), 0);
+            		}
+        	}
+        	
+        	return Inventory.getCount() - Inventory.getCount(keep) == 0;
+	}
 
 	/**
 	 * Deposits the players inventory using the provided "deposit items" button. For efficiency, this method will
